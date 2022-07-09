@@ -1,0 +1,67 @@
+Started by user admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/deploy-php
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Run the playnook)
+[Pipeline] sh
++ cd /var/lib/jenkins/workspace/deploy-php
++ rm -rf *
+[Pipeline] sh
++ git clone https://github.com/pksharathkumar/projCert.git
+Cloning into 'projCert'...
+[Pipeline] sh
++ ansible-playbook --inventory /tmp/inv /var/lib/jenkins/workspace/deploy-php/projCert/deploy-php.yaml --extra-vars env=test build_tag=15
+
+PLAY [test] ********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [172.31.11.132]
+
+TASK [add GPG key] *************************************************************
+ok: [172.31.11.132]
+
+TASK [install docker] **********************************************************
+ok: [172.31.11.132] => (item=docker-ce)
+ok: [172.31.11.132] => (item=docker-ce-cli)
+ok: [172.31.11.132] => (item=containerd.io)
+
+TASK [Maker sure docker service is started] ************************************
+ok: [172.31.11.132]
+
+TASK [Delete content & directory] **********************************************
+changed: [172.31.11.132]
+
+TASK [Creates Fresh directory] *************************************************
+changed: [172.31.11.132]
+
+TASK [Creates directory] *******************************************************
+ok: [172.31.11.132]
+
+TASK [Git Clone] ***************************************************************
+changed: [172.31.11.132]
+
+TASK [Stop any existing container] *********************************************
+changed: [172.31.11.132]
+
+TASK [Build the application] ***************************************************
+changed: [172.31.11.132]
+
+TASK [Run the application] *****************************************************
+changed: [172.31.11.132]
+
+PLAY RECAP *********************************************************************
+172.31.11.132              : ok=11   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Post stage
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
